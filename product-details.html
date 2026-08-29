@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliteSport | Product Details</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="details-style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="details-page">
+
+    <!-- Header الموحد -->
+   
+     <header id="main-header2" class="scrolled">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+    <i class="fa-solid fa-bars"></i>
+</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html"class="active">Shop</a></li>
+                <li><a href="ai-trainer.html" >AI Trainer</a></li>
+                <li><a href="progress.html">Progress</a></li>
+            </ul>
+         <div class="nav-icons">
+    <!-- أيقونة الروبوت -->
+    <a href="chatbot.html" class="robot-icon" >
+        <i class="bi bi-robot"></i>
+    </a>
+
+    <!-- أيقونة السلة -->
+    <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="badge" id="cart-count">0</span>
+    </a>
+
+    <!-- المنطقة التي ستتغير (دخول أو بروفايل) -->
+    <div id="user-auth-area">
+        <a href="signin.html" class="user-link-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Sign In</span>
+        </a>
+    </div>
+</div>
+</div>
+        </nav>
+    </header>
+
+
+    <main class="details-container">
+        <!-- الجزء العلوي: تفاصيل المنتج الحالي -->
+        <div class="product-main-flex">
+            <div class="details-image-box">
+                <img id="detImg" src="" alt="Product Image">
+            </div>
+            
+            <div class="details-info-box">
+                <nav class="breadcrumb"><a href="shop.html">Shop</a> / <span id="detCat">Category</span></nav>
+                <h1 id="detName">Loading...</h1>
+                <div class="rating-stars">★★★★★ <span>(4.9/5 Rating)</span></div>
+                <div class="price-big" id="detPrice">$0.00</div>
+                <p id="detDesc">Detailed description of the product goes here...</p>
+                
+                <div class="quantity-selector">
+                    <span>Quantity:</span>
+                    <div class="qty-controls">
+                        <button onclick="changeQty(-1)">-</button>
+                        <span id="qtyVal">1</span>
+                        <button onclick="changeQty(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <button class="btn-buy-now" id="addBtnDetails">Add to Cart <i class="fa-solid fa-cart-shopping"></i></button>
+                    <button class="btn-wishlist"><i class="fa-regular fa-heart"></i></button>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- الجزء السفلي: اقتراحات ذكية -->
+        <section class="suggestions-section">
+            <div class="section-title">
+                <h2>Recommended <span class="orange-text">For You</span></h2>
+                <p>Based on your interest in <span id="catNameSpan">this category</span></p>
+            </div>
+            <div class="suggestion-grid" id="suggestionGrid">
+                <!-- سيتم تعبئتها بواسطة JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer الموحد -->
+ <footer class="main-footer">
+    <div class="footer-container">
+        <!-- العمود الأول: اللوجو والوصف -->
+        <div class="footer-col brand-col">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Elite Sport Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+            <p>Premium fitness equipment powered by AI-driven training plans. Transform your home into a professional gym.</p>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- العمود الثاني: Shop (تم ربطها بباراميتر الفلتر) -->
+        <div class="footer-col">
+    <h4>Shop</h4>
+    <ul id="footer-shop-links">
+        <!-- أضفنا data-filter لترتبط مع كود الجافا سكربت -->
+        <li><a href="shop.html?filter=strength" data-filter="strength">Dumbbells</a></li>
+        <li><a href="shop.html?filter=resistance" data-filter="resistance">Resistance Bands</a></li>
+        <li><a href="shop.html?filter=strength" data-filter="strength">Weight Benches</a></li>
+        <li><a href="shop.html?filter=cardio" data-filter="cardio">Cardio Equipment</a></li>
+        <li><a href="shop.html?filter=yoga" data-filter="yoga">Yoga & Stretch</a></li>
+    </ul>
+</div>
+
+        <!-- العمود الثالث: Support -->
+        <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="shop.html" onclick="startSmartAI()">AI Trainer</a></li>
+                <li><a href="#">Progress Tracking</a></li>
+                <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns Policy</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+
+        <!-- العمود الرابع: Company -->
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <!-- تم ربطها بالـ ID الخاص بقسم أباوت في الصفحة الرئيسية -->
+                <li><a href="index.html#about-section">About Us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="index.html#feedback-section">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- العمود الخامس: Newsletter -->
+        <div class="footer-col newsletter-col">
+            <h4>Stay Updated</h4>
+            <p>Get workout tips and exclusive offers.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2024 EliteSport Palestine. All rights reserved.</p>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+    <script src="details-script.js"></script>
+</body>
+</html>
+<script src="api.js"></script>

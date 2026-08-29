@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliteSport | My Profile</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop-style.css">
+    <link rel="stylesheet" href="profile-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+<header id="main-header2" class="scrolled">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="img/logo.png" alt="Logo">
+            <span class="logo-text">Elite <span>Sport</span></span>
+        </a>
+
+        <div class="menu-toggle" id="mobile-menu" style="color:black;">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="ai-trainer.html">AI Trainer</a></li>
+            <li><a href="progress.html">Progress</a></li>
+        </ul>
+
+        <div class="nav-icons">
+            <a href="chatbot.html" class="robot-icon">
+                <i class="bi bi-robot"></i>
+            </a>
+
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cart-count">0</span>
+            </a>
+
+            <div id="user-auth-area">
+                <a href="signin.html" class="user-link-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Sign In</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="profile-container">
+
+    <aside class="profile-sidebar">
+        <div class="user-brief">
+            <img src="https://ui-avatars.com/api/?name=Elite+Member&background=ff6b35&color=fff" id="profile-img" alt="">
+            <h3 id="profile-name">Elite Member</h3>
+            <p id="profile-email">email@example.com</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="active" onclick="showAccountInfo(event)">
+                <i class="fa-solid fa-id-card"></i> Account Info
+            </a>
+
+            <a href="#" onclick="showOrders(event)">
+                <i class="fa-solid fa-box"></i> My Orders
+            </a>
+
+            <a href="#" onclick="showWishlist(event)">
+                <i class="fa-solid fa-heart"></i> Wishlist
+            </a>
+
+            <hr>
+
+            <a href="#" onclick="logout(event)" class="logout-link">
+                <i class="fa-solid fa-right-from-bracket"></i> Log Out
+            </a>
+        </nav>
+    </aside>
+
+    <section class="profile-content" id="profile-content">
+        <div class="dashboard-header">
+            <h1>My <span class="orange-text">Profile</span></h1>
+            <p>Manage your account and track your orders.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Orders</span>
+                <strong id="total-orders-count">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Total Spent</span>
+                <strong id="total-spent-amount">$0.00</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Latest Status</span>
+                <strong id="latest-status">No Orders</strong>
+            </div>
+        </div>
+
+        <div class="recent-orders">
+            <div class="section-title">
+                <h3>Recent Orders</h3>
+            </div>
+
+            <p style="color:#888; padding:40px; text-align:center;">
+                No orders found yet.
+            </p>
+        </div>
+    </section>
+
+</main>
+
+<footer class="main-footer">
+    <div class="footer-container">
+
+        <div class="footer-col brand-col">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Elite Sport Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+
+            <p>Premium fitness equipment powered by AI-driven training plans. Transform your home into a professional gym.</p>
+
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>Shop</h4>
+            <ul id="footer-shop-links">
+                <li><a href="shop.html?filter=strength">Dumbbells</a></li>
+                <li><a href="shop.html?filter=resistance">Resistance Bands</a></li>
+                <li><a href="shop.html?filter=strength">Weight Benches</a></li>
+                <li><a href="shop.html?filter=cardio">Cardio Equipment</a></li>
+                <li><a href="shop.html?filter=yoga">Yoga & Stretch</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="ai-trainer.html">AI Trainer</a></li>
+                <li><a href="progress.html">Progress Tracking</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="index.html#about-section">About Us</a></li>
+                <li><a href="index.html#feedback-section">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col newsletter-col">
+            <h4>Stay Updated</h4>
+            <p>Get workout tips and exclusive offers.</p>
+
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 EliteSport Palestine. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="api.js"></script>
+
+<script>
+const API_BASE = "http://localhost:4000";
+
+document.addEventListener("DOMContentLoaded", () => {
+    protectProfilePage();
+    loadProfileData();
+    renderOrders();
+});
+
+function protectProfilePage() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn !== "true") {
+        window.location.href = "signin.html";
+    }
+}
+
+function loadProfileData() {
+    const userName = localStorage.getItem("userName") || "Elite Member";
+    const userEmail = localStorage.getItem("userEmail") || "email@example.com";
+
+    document.getElementById("profile-name").innerText = userName;
+    document.getElementById("profile-email").innerText = userEmail;
+
+    document.getElementById("profile-img").src =
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=ff6b35&color=fff`;
+
+    const authArea = document.getElementById("user-auth-area");
+
+    if (authArea) {
+        authArea.innerHTML = `
+            <a href="profile.html" class="user-link-item">
+                <i class="fa-solid fa-circle-user" style="color:#ff6b35;"></i>
+                <span>Welcome, <span style="color:#ff6b35;">${userName}</span></span>
+            </a>
+        `;
+    }
+}
+
+function setActiveLink(clickedLink) {
+    document.querySelectorAll(".sidebar-nav a").forEach(link => {
+        link.classList.remove("active");
+    });
+
+    clickedLink.classList.add("active");
+}
+
+function showAccountInfo(event) {
+    event.preventDefault();
+    setActiveLink(event.currentTarget);
+
+    document.getElementById("profile-content").innerHTML = `
+        <div class="dashboard-header">
+            <h1>My <span class="orange-text">Profile</span></h1>
+            <p>Manage your account and track your orders.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Orders</span>
+                <strong id="total-orders-count">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Total Spent</span>
+                <strong id="total-spent-amount">$0.00</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Latest Status</span>
+                <strong id="latest-status">No Orders</strong>
+            </div>
+        </div>
+
+        <div class="recent-orders">
+            <div class="section-title">
+                <h3>Recent Orders</h3>
+            </div>
+
+            <p style="color:#888; padding:40px; text-align:center;">
+                No orders found yet.
+            </p>
+        </div>
+    `;
+
+    renderOrders();
+}
+
+function showOrders(event) {
+    event.preventDefault();
+    setActiveLink(event.currentTarget);
+
+    document.getElementById("profile-content").innerHTML = `
+        <div class="dashboard-header">
+            <h1>My <span class="orange-text">Orders</span></h1>
+            <p>All orders linked to your account.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Orders</span>
+                <strong id="total-orders-count">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Total Spent</span>
+                <strong id="total-spent-amount">$0.00</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Latest Status</span>
+                <strong id="latest-status">No Orders</strong>
+            </div>
+        </div>
+
+        <div class="recent-orders">
+            <div class="section-title">
+                <h3>Recent Orders</h3>
+            </div>
+        </div>
+    `;
+
+    renderOrders();
+}
+
+async function renderOrders() {
+    const ordersList = document.querySelector(".recent-orders");
+    const userId = localStorage.getItem("userId");
+
+    if (!ordersList || !userId) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/api/orders/user/${userId}`);
+        const orders = await response.json();
+
+        let totalSpent = 0;
+
+        if (!orders || orders.length === 0) {
+            ordersList.innerHTML = `
+                <div class="section-title">
+                    <h3>Recent Orders</h3>
+                </div>
+
+                <p style="color:#888; padding:40px; text-align:center;">
+                    No orders found yet.
+                </p>
+            `;
+
+            document.getElementById("total-orders-count").innerText = "0";
+            document.getElementById("total-spent-amount").innerText = "$0.00";
+            document.getElementById("latest-status").innerText = "No Orders";
+            return;
+        }
+
+        let html = `
+            <div class="section-title">
+                <h3>Recent Orders</h3>
+            </div>
+        `;
+
+        orders.forEach(order => {
+            totalSpent += Number(order.total_amount || 0);
+
+            const productsText = order.products || "No products";
+
+            html += `
+                <div class="order-card">
+                    <div class="order-info">
+                        <strong>Order #ORD-${order.id}</strong>
+                        <span>${new Date(order.order_date).toLocaleDateString()}</span>
+                    </div>
+
+                    <div class="order-price">
+                        $${Number(order.total_amount || 0).toFixed(2)}
+                    </div>
+
+                    <div class="order-status processing">
+                        Processing
+                    </div>
+
+                    <button class="btn-detail" onclick="alert('${productsText.replace(/'/g, "")}')">
+                        Details
+                    </button>
+                </div>
+            `;
+        });
+
+        ordersList.innerHTML = html;
+
+        document.getElementById("total-orders-count").innerText = orders.length;
+        document.getElementById("total-spent-amount").innerText = "$" + totalSpent.toFixed(2);
+        document.getElementById("latest-status").innerText = "Processing";
+
+    } catch (error) {
+        console.error(error);
+        ordersList.innerHTML = `
+            <p style="color:red; padding:40px; text-align:center;">
+                Failed to load orders.
+            </p>
+        `;
+    }
+}
+
+function showWishlist(event) {
+    event.preventDefault();
+    setActiveLink(event.currentTarget);
+    renderWishlist();
+}
+
+function renderWishlist() {
+    const contentArea = document.getElementById("profile-content");
+    const userId = localStorage.getItem("userId");
+
+    const wishlist =
+        JSON.parse(localStorage.getItem(`wishlist_${userId}`)) || [];
+
+    let html = `
+        <div class="dashboard-header">
+            <h1>My <span class="orange-text">Wishlist</span></h1>
+            <p>Your favorite fitness products.</p>
+        </div>
+    `;
+
+    if (wishlist.length === 0) {
+        html += `
+            <p style="padding:40px; color:#888; text-align:center;">
+                Your wishlist is empty.
+            </p>
+        `;
+    } else {
+        html += `
+            <div class="wishlist-grid"
+                style="
+                    display:grid;
+                    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+                    gap:20px;
+                    margin-top:30px;
+                ">
+        `;
+
+        wishlist.forEach((item, index) => {
+            html += `
+                <div style="
+                    background:white;
+                    border-radius:20px;
+                    padding:15px;
+                    border:1px solid #eee;
+                    text-align:center;
+                ">
+                    <img src="${item.img}"
+                        style="
+                            width:100%;
+                            height:180px;
+                            object-fit:cover;
+                            border-radius:15px;
+                        ">
+
+                    <h3 style="margin-top:15px;color:#000;">
+                        ${item.name}
+                    </h3>
+
+                    <p style="color:#ff6b35;font-weight:900;margin:10px 0;">
+                        ${item.price}
+                    </p>
+
+                    <button onclick="removeFromWishlist(${index})"
+                        style="
+                            width:100%;
+                            background:#ff6b35;
+                            color:white;
+                            border:none;
+                            padding:12px;
+                            border-radius:12px;
+                            cursor:pointer;
+                            font-weight:700;
+                        ">
+                        Remove
+                    </button>
+                </div>
+            `;
+        });
+
+        html += `</div>`;
+    }
+
+    contentArea.innerHTML = html;
+}
+
+function removeFromWishlist(index) {
+    const userId = localStorage.getItem("userId");
+
+    let wishlist =
+        JSON.parse(localStorage.getItem(`wishlist_${userId}`)) || [];
+
+    wishlist.splice(index, 1);
+
+    localStorage.setItem(
+        `wishlist_${userId}`,
+        JSON.stringify(wishlist)
+    );
+
+    renderWishlist();
+}
+
+function logout(event) {
+    event.preventDefault();
+
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("authToken");
+
+    window.location.href = "signin.html";
+}
+</script>
+
+</body>
+</html>

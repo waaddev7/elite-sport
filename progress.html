@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Sport | Fitness Dashboard</title>
+    <link rel="stylesheet" href="style.css"> 
+    
+    
+ <link rel="stylesheet" href="progress.css"> 
+    <link rel="stylesheet" href="shop-style.css"> 
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="progress-page-white">
+ <header id="main-header2" class="scrolled">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+    <i class="fa-solid fa-bars"></i>
+</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="ai-trainer.html" >AI Trainer</a></li>
+                <li><a href="progress.html" class="active">Progress</a></li>
+            </ul>
+         <div class="nav-icons">
+    <!-- أيقونة الروبوت -->
+    <a href="chatbot.html" class="robot-icon" >
+        <i class="bi bi-robot"></i>
+    </a>
+
+    <!-- أيقونة السلة -->
+    <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="badge" id="cart-count">0</span>
+    </a>
+
+    <!-- المنطقة التي ستتغير (دخول أو بروفايل) -->
+    <div id="user-auth-area">
+        <a href="signin.html" class="user-link-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Sign In</span>
+        </a>
+    </div>
+</div>
+</div>
+        </nav>
+    </header>
+
+    <main class="progress-container">
+
+        <div class="journey-header">
+            <div class="title-area">
+                <p class="tagline-p">PERFORMANCE DASHBOARD</p>
+                <h1 id="journey-title">Your Fitness <span class="orange-text">Journey</span></h1>
+            </div>
+            <div class="streak-badge-premium">
+                <i class="fa-solid fa-fire"></i> <span id="display-streak">4</span> Day Streak
+            </div>
+        </div> 
+
+        <div class="stats-grid-p">
+            <div class="stat-box-light">
+                <div class="sc-icon red"><i class="fa-regular fa-calendar-check"></i></div>
+                <div class="sc-info"><h3 id="top-total-workouts">0</h3><p>Total Sessions</p></div>
+            </div>
+            <div class="stat-box-light">
+                <div class="sc-icon orange"><i class="fa-solid fa-fire-flame-simple"></i></div>
+                <!-- ✅ التعديل الوحيد: "Calories Goal" → "Calories Burned" لأن الرقم يأتي من history (سعرات محروقة فعلية) -->
+                <div class="sc-info"><h3 id="top-total-calories">0</h3><p>Calories Burned</p></div>
+            </div>
+            <div class="stat-box-light">
+                <div class="sc-icon blue"><i class="fa-regular fa-clock"></i></div>
+                <div class="sc-info"><h3 id="top-total-hours">0.0</h3><p>Hours Trained</p></div>
+            </div>
+            <div class="stat-box-light">
+                <div class="sc-icon green"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="sc-info"><h3 id="top-bmi-display">0.0</h3><p>Current BMI</p></div>
+            </div>
+        </div>
+
+        <div class="tabs-p">
+            <button class="t-btn active" id="tab-overview" onclick="switchTab('overview')">Overview</button>
+            <button class="t-btn" id="tab-history" onclick="switchTab('history')">Workout History</button>
+            <button class="t-btn" id="tab-metrics" onclick="switchTab('metrics')">Body Metrics</button>
+        </div>
+
+        <!-- 1. Overview -->
+        <div id="section-overview">
+            <div class="charts-row-p">
+                <div class="chart-card-white">
+                    <h4>Weekly Calories Burned</h4>
+                    <div class="canvas-wrap"><canvas id="caloriesChart"></canvas></div>
+                </div>
+                <div class="chart-card-white">
+                    <h4>Weekly Training Duration (min)</h4>
+                    <div class="canvas-wrap"><canvas id="durationChart"></canvas></div>
+                </div>
+            </div>
+            <div class="summary-card-wide-light">
+                <h4>This Week Summary</h4>
+                <div class="sw-flex">
+                    <div class="sw-item"><strong id="sum-workouts">0</strong><p>Workouts</p></div>
+                    <div class="sw-item"><strong id="sum-calories">0</strong><p>Total Calories</p></div>
+                    <div class="sw-item"><strong id="sum-duration">0</strong><p>Total Minutes</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Workout History -->
+        <div id="section-history" style="display: none;">
+            <div class="history-main-card">
+                <h4>Recent AI Workouts</h4>
+                <div id="history-list-container"></div>
+            </div>
+        </div>
+
+        <!-- 3. Body Metrics -->
+        <div id="section-metrics" style="display: none;">
+            <div class="charts-row-p">
+                <div class="chart-card-white">
+                    <h4>Weight Trend (kg) - AI Projection</h4>
+                    <div class="canvas-wrap"><canvas id="weightChart"></canvas></div>
+                </div>
+                <div class="chart-card-white">
+                    <h4>Muscle Mass Trend (%) - AI Projection</h4>
+                    <div class="canvas-wrap"><canvas id="muscleChart"></canvas></div>
+                </div>
+            </div>
+            <div class="summary-card-wide-light">
+                <h4>AI Estimated Body Composition</h4>
+                <div class="metrics-info-grid">
+                    <div class="m-info-box">
+                        <p>Weight</p>
+                        <h3 id="m-weight">-- kg</h3>
+                        <span class="m-change down" id="weight-change">Calculated by AI</span>
+                    </div>
+                    <div class="m-info-box">
+                        <p>Body Fat</p>
+                        <h3 id="m-fat-val">--%</h3>
+                        <span class="m-change down" id="fat-change">--</span>
+                    </div>
+                    <div class="m-info-box">
+                        <p>Muscle Mass</p>
+                        <h3 id="m-muscle-val">--%</h3>
+                        <span class="m-change up" id="muscle-change">--</span>
+                    </div>
+                    <div class="m-info-box">
+                        <p>BMI Status</p>
+                        <h3 id="m-bmi">--</h3>
+                        <span style="font-size: 11px; color: var(--text-muted);">Scientifically Analyzed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+        <!-- العمود الأول: اللوجو والوصف -->
+        <div class="footer-col brand-col">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Elite Sport Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+            <p>Premium fitness equipment powered by AI-driven training plans. Transform your home into a professional gym.</p>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- العمود الثاني: Shop (تم ربطها بباراميتر الفلتر) -->
+        <div class="footer-col">
+    <h4>Shop</h4>
+    <ul id="footer-shop-links">
+        <!-- أضفنا data-filter لترتبط مع كود الجافا سكربت -->
+        <li><a href="shop.html?filter=strength" data-filter="strength">Dumbbells</a></li>
+        <li><a href="shop.html?filter=resistance" data-filter="resistance">Resistance Bands</a></li>
+        <li><a href="shop.html?filter=strength" data-filter="strength">Weight Benches</a></li>
+        <li><a href="shop.html?filter=cardio" data-filter="cardio">Cardio Equipment</a></li>
+        <li><a href="shop.html?filter=yoga" data-filter="yoga">Yoga & Stretch</a></li>
+    </ul>
+</div>
+
+        <!-- العمود الثالث: Support -->
+        <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="ai-trainer.html" onclick="startSmartAI()">AI Trainer</a></li>
+                <li><a href="ai-trainer.html">Progress Tracking</a></li>
+                <!-- <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns Policy</a></li>
+                <li><a href="#">FAQ</a></li> -->
+            </ul>
+        </div>
+
+        <!-- العمود الرابع: Company -->
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <!-- تم ربطها بالـ ID الخاص بقسم أباوت في الصفحة الرئيسية -->
+                <li><a href="index.html#about-section">About Us</a></li>
+            
+                <li><a href="index.html#feedback-section">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- العمود الخامس: Newsletter -->
+        <div class="footer-col newsletter-col">
+            <h4>Stay Updated</h4>
+            <p>Get workout tips and exclusive offers.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2024 EliteSport Palestine. All rights reserved.</p>
+    </div>
+</footer>
+
+    <script src="progress-logic.js"></script>
+       <!-- استدعاء ملفات الجافا سكربت -->
+    <script src="script.js"></script>
+    <script src="shop-script.js"></script>
+</body>
+</html>
+<script src="api.js"></script>

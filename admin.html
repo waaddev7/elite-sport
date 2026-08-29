@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elite Sport | Admin Dashboard</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="admin-style.css"/>
+  <script defer src="admin-script.js"></script>
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-icon"><i class="fa-solid fa-dumbbell"></i></div>
+    <div>
+      <h1>Elite Sport</h1>
+      <p>Admin Panel</p>
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+    <a class="nav-link active" href="#dashboard">
+      <i class="fa-solid fa-table-columns"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a class="nav-link" href="#products">
+      <i class="fa-solid fa-box"></i>
+      <span>Products</span>
+    </a>
+
+    <a class="nav-link" href="#orders">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Orders</span>
+    </a>
+
+    <a class="nav-link" href="#users">
+      <i class="fa-solid fa-users"></i>
+      <span>Users</span>
+    </a>
+  </nav>
+
+  <button class="logout-btn" id="logoutBtn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
+  </button>
+</aside>
+
+<main class="main-content">
+
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div>
+      <h2>Elite Sport Admin</h2>
+      <p>Manage products, users, and orders.</p>
+    </div>
+
+    <div class="topbar-actions">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearch" placeholder="Search dashboard..."/>
+      </div>
+
+      <div class="admin-profile">
+        <div class="profile-text">
+          <strong id="adminNameText">Admin</strong>
+          <small id="adminEmailText">admin@elitesport.com</small>
+        </div>
+        <div class="avatar" id="adminAvatar">A</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="content" id="dashboard">
+
+    <section class="stats-grid">
+      <article class="stat-card orange">
+        <div class="stat-icon"><i class="fa-solid fa-box"></i></div>
+        <p>Total Products</p>
+        <h3 id="totalProducts">0</h3>
+        <span>Loaded from database</span>
+      </article>
+
+      <article class="stat-card blue">
+        <div class="stat-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+        <p>Total Orders</p>
+        <h3 id="totalOrders">0</h3>
+        <span>Linked to users</span>
+      </article>
+
+      <article class="stat-card green">
+        <div class="stat-icon"><i class="fa-solid fa-dollar-sign"></i></div>
+        <p>Total Revenue</p>
+        <h3 id="totalRevenue">$0</h3>
+        <span>Orders total</span>
+      </article>
+
+      <article class="stat-card purple">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <p>Total Users</p>
+        <h3 id="totalUsers">0</h3>
+        <span>Current app users</span>
+      </article>
+    </section>
+
+    <section class="panel" id="products">
+      <div class="panel-header">
+        <div>
+          <h3>Products Management</h3>
+          <p>Add, edit, delete and filter Elite Sport products.</p>
+        </div>
+
+        <button class="primary-btn" id="openProductModal">
+          <i class="fa-solid fa-plus"></i>
+          Add Product
+        </button>
+      </div>
+
+      <div class="tools-row">
+        <div class="input-with-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="productSearch" placeholder="Search products..."/>
+        </div>
+
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="Strength">Strength</option>
+          <option value="Resistance">Resistance</option>
+          <option value="Cardio">Cardio</option>
+          <option value="Yoga">Yoga</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="orders">
+      <div class="panel-header">
+        <div>
+          <h3>Orders Management</h3>
+          <p>View, update, or delete customer orders.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>User</th>
+              <th>Products</th>
+              <th>Total</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="users">
+      <div class="panel-header">
+        <div>
+          <h3>Users Management</h3>
+          <p>Edit users, change roles, or delete accounts.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<div class="modal" id="productModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add Product</h3>
+      <button id="closeProductModal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="productForm">
+      <input type="hidden" id="productId"/>
+
+      <label>
+        Product Name
+        <input type="text" id="productName" required placeholder="Adjustable Dumbbells"/>
+      </label>
+
+      <label>
+        Category
+        <select id="productCategory" required>
+          <option value="Strength">Strength</option>
+          <option value="Resistance">Resistance</option>
+          <option value="Cardio">Cardio</option>
+          <option value="Yoga">Yoga</option>
+        </select>
+      </label>
+
+      <label>
+        Price
+        <input type="number" id="productPrice" min="0" step="0.01" required/>
+      </label>
+
+      <label>
+        Stock
+        <input type="number" id="productStock" min="0" required/>
+      </label>
+
+      <label>
+        Image URL
+        <input type="text" id="productImage" placeholder="img/example.jpg or https://..."/>
+      </label>
+
+      <label>
+        Description
+        <textarea id="productDescription" rows="3" placeholder="Product description"></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelProduct">Cancel</button>
+        <button type="submit" class="primary-btn">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="userModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Edit User</h3>
+      <button id="closeUserModal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="userForm">
+      <input type="hidden" id="editUserId"/>
+
+      <label>
+        Username
+        <input type="text" id="editUsername" required/>
+      </label>
+
+      <label>
+        Email
+        <input type="email" id="editUserEmail" required/>
+      </label>
+
+      <label>
+        Role
+        <select id="editUserRole">
+          <option value="0">Customer</option>
+          <option value="1">Admin</option>
+        </select>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelUserEdit">Cancel</button>
+        <button type="submit" class="primary-btn">Save User</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="api.js"></script>
+
+</body>
+</html>

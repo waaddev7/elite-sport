@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EliteSport | AI Trainer</title>
+<!-- استدعاء المكتبات الضرورية للأيقونات -->
+  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop-style.css"> 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+/* ===== VARIABLES ===== */
+:root {
+    --primary: #ff6b35;
+    --primary-orange: #ff6b35;
+    --bg-light: #f8f9fa; /* خلفية الموقع سكنية فاتحة */
+    --white: #ffffff;
+    --text-dark: #1d1d1f;
+    --text-muted: #86868b;
+}
+
+/* ===== RESET & LAYOUT ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* لضمان بقاء الهيدر فوق */
+}
+
+/* ===== HEADER (White & Fixed) ===== */
+/* header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 10000;
+    padding: 15px 6%; background-color: var(--white);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    display: flex; align-items: center;
+}
+
+.navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo img { height: 45px; width: auto; object-fit: contain; }
+.logo-text { font-size: 22px; font-weight: 800; color: var(--text-dark); }
+.logo-text span { color: var(--primary-orange); }
+
+.nav-links { display: flex; list-style: none; background: rgba(0, 0, 0, 0.03); padding: 5px; border-radius: 50px; }
+.nav-links a { text-decoration: none; color: #666; font-size: 14px; padding: 8px 18px; font-weight: 600; transition: 0.3s; }
+.nav-links a.active { background: white; color: var(--text-dark); border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+.nav-icons { display: flex; align-items: center; gap: 20px; } */
+
+/* أيقونة الروبوت 
+.robot-icon { font-size: 24px; color: var(--primary); text-decoration: none; }*/
+
+/* أيقونة السلة 
+.cart-icon { position: relative; font-size: 22px; color: var(--text-dark); text-decoration: none; }
+.cart-icon .badge {
+    position: absolute; top: -8px; right: -10px; background: var(--primary);
+    color: white; font-size: 10px; width: 18px; height: 18px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;
+}
+
+.user-link-item { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 14px; }
+*/
+/* ===== CHAT WRAPPER (Sleek White) ===== */
+.chat-main-container {
+    flex: 1; display: flex; justify-content: center; align-items: center;
+    padding: 100px 20px 40px; /* مساحة تحت الهيدر */
+}
+
+.chat-wrapper {
+    width: 100%; max-width: 900px; height: 80vh;
+    display: flex; flex-direction: column;
+    background: var(--white);
+    border-radius: 35px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+
+.header-chat {
+    padding: 20px; border-bottom: 1px solid #f0f0f0;
+    font-size: 18px; font-weight: 900; text-align: center; color: var(--text-dark);
+}
+
+.messages { flex: 1; overflow-y: auto; padding: 30px; display: flex; flex-direction: column; gap: 15px; }
+
+/* فقاعات الرسائل */
+.message { max-width: 75%; padding: 15px 22px; border-radius: 20px; font-size: 15px; line-height: 1.6; }
+.user-row { justify-content: flex-end; display: flex; }
+.bot-row  { justify-content: flex-start; display: flex; }
+
+.user { background: var(--primary); color: white; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(255,107,53,0.2); }
+.bot { background: #f5f5f7; color: var(--text-dark); border: 1px solid #eee; border-bottom-left-radius: 4px; }
+
+/* منطقة الإدخال */
+.input-container { padding: 20px 40px; background: white; border-top: 1px solid #f0f0f0; }
+.input-box { background: #f5f5f7; border-radius: 50px; display: flex; align-items: center; padding: 5px 15px; border: 2px solid transparent; transition: 0.3s; }
+.input-box:focus-within { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(255,107,53,0.1); }
+
+.input-box textarea {
+    flex: 1; background: transparent; border: none; outline: none; resize: none;
+    color: var(--text-dark); font-size: 16px; padding: 12px;
+}
+
+.send-btn {
+    width: 42px; height: 42px; border-radius: 50%; border: none;
+    background: var(--primary); color: white; cursor: pointer;
+    font-size: 18px; display: flex; align-items: center; justify-content: center;
+    transition: 0.3s; box-shadow: 0 4px 10px rgba(255,107,53,0.2);
+}
+.send-btn:hover { transform: scale(1.1); background: #e55a2b; }
+
+.welcome { margin: auto; text-align: center; }
+.welcome h1 { font-size: 38px; font-weight: 900; color: var(--text-dark); margin-bottom: 10px; }
+.welcome p { color: var(--text-muted); font-size: 16px; }
+
+.typing { opacity: 0.7; font-style: italic; font-size: 13px; color: var(--primary); }
+</style>
+</head>
+<body>
+ <header id="main-header2" class="scrolled">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+    <i class="fa-solid fa-bars"></i>
+</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="ai-trainer.html" >AI Trainer</a></li>
+                <li><a href="progress.html">Progress</a></li>
+            </ul>
+         <div class="nav-icons">
+    <!-- أيقونة الروبوت -->
+    <a href="chatbot.html" class="robot-icon" >
+        <i class="bi bi-robot"></i>
+    </a>
+
+    <!-- أيقونة السلة -->
+    <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="badge" id="cart-count">0</span>
+    </a>
+
+    <!-- المنطقة التي ستتغير (دخول أو بروفايل) -->
+    <div id="user-auth-area">
+        <a href="signin.html" class="user-link-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Sign In</span>
+        </a>
+    </div>
+</div>
+</div>
+        </nav>
+    </header>
+
+ <main class="chat-main-container">
+        <div class="chat-wrapper">
+            <div class="header-chat">Elite AI Mate ⚡</div>
+
+            <div class="messages" id="messages">
+                <div class="welcome" id="welcome">
+                    <h1>Ask anything</h1>
+                    <p>Your AI Fitness Coach</p>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-box">
+                    <textarea id="userInput" rows="1" placeholder="Type your question..."></textarea>
+                    <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <!-- العمود الأول: اللوجو والوصف -->
+        <div class="footer-col brand-col">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Elite Sport Logo">
+                <span class="logo-text">Elite <span>Sport</span></span>
+            </a>
+            <p>Premium fitness equipment powered by AI-driven training plans. Transform your home into a professional gym.</p>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- العمود الثاني: Shop (تم ربطها بباراميتر الفلتر) -->
+        <div class="footer-col">
+    <h4>Shop</h4>
+    <ul id="footer-shop-links">
+        <!-- أضفنا data-filter لترتبط مع كود الجافا سكربت -->
+        <li><a href="shop.html?filter=strength" data-filter="strength">Dumbbells</a></li>
+        <li><a href="shop.html?filter=resistance" data-filter="resistance">Resistance Bands</a></li>
+        <li><a href="shop.html?filter=strength" data-filter="strength">Weight Benches</a></li>
+        <li><a href="shop.html?filter=cardio" data-filter="cardio">Cardio Equipment</a></li>
+        <li><a href="shop.html?filter=yoga" data-filter="yoga">Yoga & Stretch</a></li>
+    </ul>
+</div>
+
+        <!-- العمود الثالث: Support -->
+        <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="ai-trainer.html" onclick="startSmartAI()">AI Trainer</a></li>
+                <li><a href="ai-trainer.html">Progress Tracking</a></li>
+                <!-- <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns Policy</a></li>
+                <li><a href="#">FAQ</a></li> -->
+            </ul>
+        </div>
+
+        <!-- العمود الرابع: Company -->
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <!-- تم ربطها بالـ ID الخاص بقسم أباوت في الصفحة الرئيسية -->
+                <li><a href="index.html#about-section">About Us</a></li>
+            
+                <li><a href="index.html#feedback-section">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- العمود الخامس: Newsletter -->
+        <div class="footer-col newsletter-col">
+            <h4>Stay Updated</h4>
+            <p>Get workout tips and exclusive offers.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2024 EliteSport Palestine. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<script src="api.js"></script>
+
+<script>
+const messagesEl = document.getElementById("messages");
+const input      = document.getElementById("userInput");
+const welcome    = document.getElementById("welcome");
+
+input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+input.addEventListener("input", () => {
+    input.style.height = "auto";
+    input.style.height = input.scrollHeight + "px";
+});
+
+function addMessage(text, sender) {
+    welcome.style.display = "none";
+
+    const row = document.createElement("div");
+    row.classList.add("message-row", sender === "user" ? "user-row" : "bot-row");
+
+    const message = document.createElement("div");
+    message.classList.add("message", sender);
+    message.innerText = text;
+
+    row.appendChild(message);
+    messagesEl.appendChild(row);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+
+    return message;
+}
+
+async function sendMessage() {
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    addMessage(userText, "user");
+    input.value = "";
+    input.style.height = "auto";
+
+    const typingMessage = addMessage("Typing...", "bot");
+    typingMessage.classList.add("typing");
+
+    try {
+        const data = await apiRequest("/chat", "POST", { message: userText });
+
+        if (data.error) {
+            typingMessage.innerText = "API Error: " + data.error.message;
+            return;
+        }
+
+        const botReply = data.choices?.[0]?.message?.content;
+
+        if (!botReply) {
+            typingMessage.innerText = "No response from AI.";
+            return;
+        }
+
+        typingMessage.classList.remove("typing");
+        typingMessage.innerText = botReply;
+
+    } catch (error) {
+        console.error(error);
+        typingMessage.innerText = "Failed to connect to AI.";
+    }
+}
+</script>
+<script src="script.js"></script>
+    <script src="shop-script.js"></script>
+</body>
+</html>
