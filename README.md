@@ -194,8 +194,3 @@ Developed by **Waad**
 
 Full-Stack Web Development • AI Integration • REST APIs
 
----
-
-## 📄 License
-
-This project was developed for portfolio and educational purposes.
